@@ -51,9 +51,7 @@ public class MainActivity extends AppCompatActivity {
             initObjects();
         }
 
-        /**
-         * This method is to initialize views
-         */
+
         private void initViews() {
 
             nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
@@ -71,28 +69,20 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        /**
-         * This method is to initialize listeners
-         */
+
         private void initListeners() {
             appCompatButtonLogin.setOnClickListener(this);
             textViewLinkRegister.setOnClickListener(this);
         }
 
-        /**
-         * This method is to initialize objects to be used
-         */
+
         private void initObjects() {
             databaseHelper = new databasehelper(activity);
             inputValidation = new inputValidation(activity);
 
         }
 
-        /**
-         * This implemented method is to listen the click on view
-         *
-         * @param v
-         */
+
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
@@ -107,9 +97,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        /**
-         * This method is to validate the input text fields and verify login credentials from SQLite
-         */
+
         private void verifyFromSQLite() {
             if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
                 return;
@@ -132,14 +120,12 @@ public class MainActivity extends AppCompatActivity {
 
 
             } else {
-                // Snack Bar to show success message that record is wrong
+
                 Snackbar.make(nestedScrollView, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG).show();
             }
         }
 
-        /**
-         * This method is to empty all input edit text
-         */
+
         private void emptyInputEditText() {
             textInputEditTextEmail.setText(null);
             textInputEditTextPassword.setText(null);
