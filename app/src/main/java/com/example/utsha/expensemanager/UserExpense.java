@@ -19,11 +19,13 @@ public class UserExpense extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 mEdit   = (EditText)findViewById(R.id.inputexpense);
-              
+
     }
 
 
    // EditText mEdit;
 
    // TextView mText;
+});
+    }
 }

@@ -1,4 +1,5 @@
 package sql;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 
@@ -7,7 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import com.example.utsha.expensemanager.MainActivity;
+
 import usermodel.User;
+
+import static android.widget.Toast.makeText;
+import static java.security.AccessController.getContext;
 
 
 public class databasehelper extends SQLiteOpenHelper{
@@ -62,9 +68,10 @@ public class databasehelper extends SQLiteOpenHelper{
 
         long newRowId=db.insert(TABLE_USER, null, values);
         if (newRowId == -1) {
-            Toast.makeText(this, "Error with registering", Toast.LENGTH_SHORT).show();
+            Toast toast=  Toast.makeText(getContext(), "Error with registering", Toast.LENGTH_SHORT);
+            toast.show();
         } else {
-            Toast.makeText(this, "registered successfully " , Toast.LENGTH_SHORT).show();
+            makeText(this, "registered successfully " , Toast.LENGTH_SHORT).show();
         }
         db.close();
     }
@@ -122,6 +129,8 @@ public class databasehelper extends SQLiteOpenHelper{
 
         return false;
     }
+
+
 }
 
 
