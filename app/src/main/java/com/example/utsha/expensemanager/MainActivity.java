@@ -9,21 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import sql.databasehelper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
 
-    public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-        private final AppCompatActivity activity = LoginActivity.this;
 
         private NestedScrollView nestedScrollView;
 
@@ -40,16 +34,17 @@ public class MainActivity extends AppCompatActivity {
         private inputValidation inputValidation;
         private databasehelper databaseHelper;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-            getSupportActionBar().hide();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
-            initViews();
-            initListeners();
-            initObjects();
-        }
+        Log.i("APP_TAG","On create!");
+        initViews();
+        initListeners();
+        initObjects();
+    }
 
         /**
          * This method is to initialize views
@@ -83,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
          * This method is to initialize objects to be used
          */
         private void initObjects() {
-            databaseHelper = new databasehelper(activity);
-            inputValidation = new inputValidation(activity);
+            databaseHelper = new databasehelper(this);
+            inputValidation = new inputValidation(this);
 
         }
 
@@ -95,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
          */
         @Override
         public void onClick(View v) {
+            Log.i("APP_TAG", " On click called!");
             switch (v.getId()) {
                 case R.id.appCompatButtonLogin:
                     verifyFromSQLite();
@@ -114,9 +110,9 @@ public class MainActivity extends AppCompatActivity {
             if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
                 return;
             }
-            if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
+            /*if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
                 return;
-            }
+            }*/
             if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_message_email))) {
                 return;
             }
@@ -125,8 +121,9 @@ public class MainActivity extends AppCompatActivity {
                     , textInputEditTextPassword.getText().toString().trim())) {
 
 
-                Intent accountsIntent = new Intent(activity, UserExpense.class);
+                Intent accountsIntent = new Intent(this, UserExpenseActivity.class);
                 accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
+                accountsIntent.putExtra("PASSWORD", textInputEditTextPassword.getText().toString().trim());
                 emptyInputEditText();
                 startActivity(accountsIntent);
 
@@ -145,4 +142,3 @@ public class MainActivity extends AppCompatActivity {
             textInputEditTextPassword.setText(null);
         }
     }
-}

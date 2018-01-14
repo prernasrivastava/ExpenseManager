@@ -13,6 +13,19 @@ public class User {
     private long savings;
     private long expense;
 
+    public User(){}
+
+    public User(int id, String name, String email, String password, long income, long budget, long expense){
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.income = income;
+        this.budget = budget;
+        this.savings = income - expense;
+        this.expense = expense;
+    }
+
     public int getId() {
         return id;
     }

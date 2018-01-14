@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import usermodel.User;
@@ -29,9 +30,12 @@ public class databasehelper extends SQLiteOpenHelper{
             + COLUMN_USER_EMAIL + " TEXT," + COLUMN_USER_PASSWORD + " TEXT, " + COLUMN_INCOME + " LONG, "
             + COLUMN_SAVINGS+" LONG, "+ COLUMN_BUDGET+ " LONG, "+COLUMN_EXPENSE+" LONG "+
              ")";
+    private Context context;
+
     private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
     public databasehelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
     public databasehelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -62,9 +66,9 @@ public class databasehelper extends SQLiteOpenHelper{
 
         long newRowId=db.insert(TABLE_USER, null, values);
         if (newRowId == -1) {
-            Toast.makeText(this, "Error with registering", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context, "Error with registering", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "registered successfully " , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context, "registered successfully " , Toast.LENGTH_SHORT).show();
         }
         db.close();
     }
@@ -121,6 +125,46 @@ public class databasehelper extends SQLiteOpenHelper{
         }
 
         return false;
+    }
+
+    public User getUser(String email, String password) {
+
+        String[] columns = {
+                COLUMN_USER_ID,
+                COLUMN_USER_NAME,
+                COLUMN_USER_EMAIL,
+                COLUMN_USER_PASSWORD,
+                COLUMN_EXPENSE,
+                COLUMN_INCOME,
+                COLUMN_BUDGET
+        };
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_USER_EMAIL + " = ?" + " AND " + COLUMN_USER_PASSWORD + " = ?";
+
+        String[] selectionArgs = {email, password};
+
+        Cursor cursor = db.query(TABLE_USER, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                       //filter by row groups
+                null);                      //The sort order
+
+        cursor.moveToNext();
+        Log.i("TAG_APP", "user_id: " + cursor.getInt(0));
+
+        Log.i("TAG_APP","Count:" + cursor.getCount());
+
+        Log.i("TAG_APP", "Column count: " + cursor.getColumnName(0));
+
+        User user = new User(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getLong(4), cursor.getLong(6), cursor.getLong(5));
+
+        cursor.close();
+        db.close();
+
+        return user;
     }
 }
 
