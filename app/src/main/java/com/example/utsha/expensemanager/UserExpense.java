@@ -14,6 +14,8 @@ public class UserExpense extends AppCompatActivity {
     Button mButton;
     EditText mEdit;
     private AppCompatTextView textViewName;
+    private AppCompatTextView textViewName1;
+    private AppCompatTextView textViewName2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +37,18 @@ public class UserExpense extends AppCompatActivity {
     @SuppressLint("WrongViewCast")
     private void initViews() {
         textViewName = (AppCompatTextView) findViewById(R.id.savings);
-
+        textViewName1 = (AppCompatTextView) findViewById(R.id.income);
+        textViewName2 = (AppCompatTextView) findViewById(R.id.budget);
     }
     private void initObjects() {
 
 
         String savingsFromIntent = getIntent().getStringExtra("SAVINGS");
         textViewName.setText(savingsFromIntent);
+        String savingsFromIntent1 = getIntent().getStringExtra("INCOME");
+        textViewName1.setText(savingsFromIntent1);
+        String savingsFromIntent2 = getIntent().getStringExtra("BUDGET");
+        textViewName2.setText(savingsFromIntent2);
 
         //getDataFromSQLite();
 
