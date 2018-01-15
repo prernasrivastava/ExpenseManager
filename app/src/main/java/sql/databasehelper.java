@@ -6,6 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.utsha.expensemanager.MainActivity;
@@ -68,7 +70,7 @@ public class databasehelper extends SQLiteOpenHelper{
 
         long newRowId=db.insert(TABLE_USER, null, values);
         if (newRowId == -1) {
-            Toast toast=  Toast.makeText(getContext(), "Error with registering", Toast.LENGTH_SHORT);
+            Snackbar toast=  Snackbar.make(coordinatorLayout, "Error with registering", Snackbar.LENGTH_SHORT);
             toast.show();
         } else {
             makeText(this, "registered successfully " , Toast.LENGTH_SHORT).show();
