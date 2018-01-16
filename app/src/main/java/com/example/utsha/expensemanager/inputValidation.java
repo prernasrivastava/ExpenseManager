@@ -42,6 +42,17 @@ public class inputValidation {
         }
         return true;
     }
+    public boolean isInputEditTextEmail(TextInputEditText textInputEditText, TextInputLayout textInputLayout, String message) {
+        String value = textInputEditText.getText().toString().trim();
+        if (value.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(value).matches()) {
+            textInputLayout.setError(message);
+            hideKeyboardFrom(textInputEditText);
+            return false;
+        } else {
+            textInputLayout.setErrorEnabled(false);
+        }
+        return true;
+    }
 
     private void hideKeyboardFrom(View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);

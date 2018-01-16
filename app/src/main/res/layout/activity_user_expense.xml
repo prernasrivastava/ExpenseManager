@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:paddingBottom="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp"
     tools:context="com.example.utsha.expensemanager.UserExpenseActivity">
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -53,4 +58,5 @@
             android:textSize="25dp" />
 
     </android.support.v7.widget.LinearLayoutCompat>
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>
+

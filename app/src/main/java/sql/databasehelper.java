@@ -1,4 +1,6 @@
 package sql;
+
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 
@@ -6,9 +8,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import android.support.design.widget.Snackbar;
 import android.widget.Toast;
 
+import com.example.utsha.expensemanager.MainActivity;
+
 import usermodel.User;
+
+import static android.widget.Toast.makeText;
+import static java.security.AccessController.getContext;
 
 
 public class databasehelper extends SQLiteOpenHelper{
